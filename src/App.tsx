@@ -17,6 +17,7 @@ const App: React.FC = () => {
           <div>
             <Route path="/" exact component={ IndexPage }/>
             <Route path='/create' component={CreatePage} />
+            <Route path="/:quizUid" component={CreatePage}/>
           </div>
         </Layout.Content>
       </Layout>
