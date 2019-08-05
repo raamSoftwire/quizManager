@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import { IndexPage } from "./components/show";
+import { IndexPage } from "./components/indexPage";
 import { Layout } from "antd";
 import { Navbar } from "./components/navbar";
+import { CreatePage } from "./components/createPage";
 
 const App: React.FC = () => {
   return (
@@ -13,13 +14,10 @@ const App: React.FC = () => {
           <Navbar/>
         </Layout.Header>
         <Layout.Content>
-
           <div>
             <Route path="/" exact component={ IndexPage }/>
-            {/*<Route path="/about/" component={About} />*/ }
-            {/*<Route path="/users/" component={Users} />*/ }
+            <Route path='/create' component={CreatePage} />
           </div>
-
         </Layout.Content>
       </Layout>
     </Router>

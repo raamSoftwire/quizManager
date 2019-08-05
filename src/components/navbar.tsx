@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Icon, Menu } from "antd";
+import { Link } from "react-router-dom";
 
 export class Navbar extends Component {
   render() {
@@ -10,16 +11,10 @@ export class Navbar extends Component {
         style={{ lineHeight: "64px" }}
       >
           <Menu.Item key="/quizzes">
-            <Icon type="file" />
-            Quizzes
+            <Link to="/"><Icon type="file" />Quizzes</Link>
           </Menu.Item>
           <Menu.Item key="/create">
-            <Icon type="file-add" />
-            Create
-          </Menu.Item>
-        <Menu.Item key="/auth/login" style={{ float: "right" }}>
-          <Icon type="logout" />
-          Logout
+            <Link to="/create"><Icon type="file-add" />Create a Quiz</Link>
           </Menu.Item>
       </Menu>
     );
