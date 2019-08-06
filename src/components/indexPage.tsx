@@ -2,9 +2,10 @@ import firebase from "firebase";
 import React, { Component } from "react";
 import { db } from '../firebase';
 import { Quiz } from "../models/quiz";
-import { Button, Row, Table } from "antd";
+import { Button, Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import moment from "moment";
+import { ContentRow } from "./layout";
 
 interface IndexPageState {
   quizzes: Quiz[];
@@ -51,8 +52,8 @@ export class IndexPage extends Component<IndexPageState> {
 
   componentDidMount() {
     this.quizzesCollection.get()
-      .then((querySnapshot) =>{
-        querySnapshot.forEach((doc) => {
+      .then(querySnapshot =>{
+        querySnapshot.forEach(doc => {
           this.setState({
             quizzes: [...this.state.quizzes, {...doc.data(), uid: doc.id} as Quiz]
           })
@@ -62,16 +63,13 @@ export class IndexPage extends Component<IndexPageState> {
 
   render() {
     return <div>
-      <Row
-        gutter={16}
-        style={{ background: "#ffffff", padding: "32px" }}
-      >
+      <ContentRow>
         <Table
           columns={this.getQuizTableColumns()}
           dataSource={this.state.quizzes}
           rowKey="uid"
         />
-      </Row>
+      </ContentRow>
     </div>
   }
 }
