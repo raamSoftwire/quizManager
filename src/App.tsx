@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import { IndexPage } from "./components/indexPage";
 import { Layout } from "antd";
 import { Navbar } from "./components/navbar";
 import { CreatePage } from "./components/createPage";
+import { ShowPage } from "./components/showPage";
 
 const App: React.FC = () => {
   return (
@@ -14,11 +15,11 @@ const App: React.FC = () => {
           <Navbar/>
         </Layout.Header>
         <Layout.Content>
-          <div>
+          <Switch>
             <Route path="/" exact component={ IndexPage }/>
             <Route path='/create' component={CreatePage} />
-            <Route path="/:quizUid" component={CreatePage}/>
-          </div>
+            <Route path="/:quizUid" component={ShowPage}/>
+          </Switch>
         </Layout.Content>
       </Layout>
     </Router>
