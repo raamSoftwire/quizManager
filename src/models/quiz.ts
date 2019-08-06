@@ -1,8 +1,7 @@
 import firebase from "firebase";
-import Timestamp = firebase.firestore.Timestamp;
 
 export interface Quiz {
   uid: string;
-  createdAt: Timestamp;
+  createdAt: firebase.firestore.Timestamp;
   title: string;
 }
