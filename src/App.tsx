@@ -6,6 +6,7 @@ import { Layout } from "antd";
 import { Navbar } from "./components/shared/navbar";
 import { CreatePage } from "./components/create/createPage";
 import { ShowPage } from "./components/show/showPage";
+import { EditPage } from "./components/create/editPage";
 
 const App: React.FC = () => {
   return (
@@ -18,7 +19,8 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/" exact component={ IndexPage }/>
             <Route path='/create' component={CreatePage} />
-            <Route path="/:quizUid" component={ShowPage}/>
+            <Route exact path="/:quizUid" component={ShowPage}/>
+            <Route exact path="/edit/:quizUid" component={EditPage}/>
           </Switch>
         </Layout.Content>
       </Layout>

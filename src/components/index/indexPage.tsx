@@ -50,7 +50,14 @@ export class IndexPage extends Component<IndexPageState> {
               >
                 View
               </Button>
-              <DeleteButton quizUid={quiz.uid}/>
+              <Button
+                type="primary"
+                style={ {marginRight: "10px"} }
+                href={ `edit/${ quiz.uid }` }
+              >
+                Edit
+              </Button>
+              <DeleteButton quizUid={ quiz.uid }/>
             </Fragment>
           )
         }

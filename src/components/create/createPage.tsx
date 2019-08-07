@@ -22,7 +22,7 @@ export class CreatePage extends Component {
     });
     const questionCollection = this.quizzesCollection.doc(quizRef.id);
     await quiz.questions.map(question => {
-      questionCollection.collection('questions').add(question)
+      return questionCollection.collection('questions').add(question)
     })
   }
 }

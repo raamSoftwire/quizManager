@@ -1,5 +1,5 @@
-import React, { Component, ReactNodeArray } from "react";
-import { Icon, Input, InputNumber, Select } from "antd";
+import React, { Component } from "react";
+import { Icon, Input } from "antd";
 import { Question } from "../../../models/question";
 
 

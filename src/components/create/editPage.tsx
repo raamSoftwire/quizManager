@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import { Quiz } from "../../models/quiz";
+import { QuizForm, QuizFormFields } from "./quizForm/quizForm";
 import { db } from "../../firebase";
-import { RouteComponentProps } from "react-router";
-import { ContentRow } from "../shared/layout";
+import { Quiz } from "../../models/quiz";
 import { Question } from "../../models/question";
-import { QuestionComponent } from "./questionComponent";
-import Title from "antd/es/typography/Title";
 
-interface ShowPageState {
-  quiz?: Quiz;
-}
-
-export class ShowPage extends Component<RouteComponentProps, ShowPageState> {
+export class EditPage extends Component {
   state = {
     quiz: {} as Quiz,
   };
@@ -44,17 +37,28 @@ export class ShowPage extends Component<RouteComponentProps, ShowPageState> {
   }
 
   render() {
-    // @ts-ignore
     return (
-      <ContentRow>
-        <Title>{
-          // @ts-ignore
-          this.state.quiz && this.state.quiz.title }
-        </Title>
-        { this.state.quiz.questions && this.state.quiz.questions.map((question: Question, index) => (
-          <QuestionComponent key={ index } question={ question } order={ index + 1 }/>
-        )) }
-      </ContentRow>
+      <QuizForm
+        defaultQuiz={ this.state.quiz }
+        submitButtonName={ "Edit" }
+        onSubmit={ (quiz: QuizFormFields) => this.editQuiz(quiz) }/>
     )
+  }
+
+  private editQuiz = async (quiz: QuizFormFields) => {
+
+    this.quizzesCollection.doc(this.quizUid).update({
+      title: quiz.title,
+    });
+
+    const questionCollection = this.quizzesCollection.doc(this.quizUid).collection('questions');
+    await questionCollection.get()
+      .then(querySnapshot => querySnapshot.forEach(doc =>
+        questionCollection.doc(doc.id).delete()
+      )
+    );
+    await quiz.questions.map(question => {
+      return questionCollection.add(question)
+    })
   }
 }
