@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Question } from "../models/question";
+import { Question } from "../../models/question";
 import Title from "antd/es/typography/Title";
 import { Collapse } from "antd";
 const { Panel } = Collapse;

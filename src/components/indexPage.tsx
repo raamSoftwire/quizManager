@@ -4,7 +4,7 @@ import { Quiz } from "../models/quiz";
 import { Button, Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import moment from "moment";
-import { ContentRow } from "./layout";
+import { ContentRow } from "./shared/layout";
 import { firestore } from "firebase";
 
 interface IndexPageState {
@@ -28,7 +28,8 @@ export class IndexPage extends Component<IndexPageState> {
         title: "Date created",
         dataIndex: "createdAt",
         key: "createdAt",
-        sorter: (a: Quiz, b: Quiz) => moment(a.createdAt).diff(moment(b.createdAt)),
+        sorter: (a: Quiz, b: Quiz) => moment(
+          a.createdAt.toMillis()).diff(moment(b.createdAt.toMillis())),
         sortDirections: ["descend", "ascend"],
         render: (createdAt: firestore.Timestamp) =>
           createdAt && moment(createdAt.toMillis()).fromNow()

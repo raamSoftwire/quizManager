@@ -1,8 +1,8 @@
 import React, { Component, FormEvent } from "react";
 import { Button, Form, Input } from "antd";
 import { FormComponentProps } from "antd/lib/form";
-import { Quiz } from "../models/quiz";
-import { ContentRow } from "./layout";
+import { Quiz } from "../../../models/quiz";
+import { ContentRow } from "../../shared/layout";
 import { DecoratedFormItem } from "./decoratedFormItem";
 import { formLayout, FormContext, formLayoutWithoutLabel } from "./formContext";
 
@@ -44,6 +44,7 @@ export class QuizForm extends Component<
             >
               <Input />
             </QuizFormItem>
+
             <Form.Item {...formLayoutWithoutLabel}>
               <Button
                 type="primary"

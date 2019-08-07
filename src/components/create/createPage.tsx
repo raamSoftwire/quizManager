@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { QuizForm, QuizFormFields } from "./quizForm";
+import { QuizForm, QuizFormFields } from "./quizForm/quizForm";
 import { FormComponentProps } from "antd/es/form";
 import { Form } from "antd";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { firestore } from "firebase";
 
 interface CreateQuizFormState {

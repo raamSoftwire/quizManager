@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Quiz } from "../models/quiz";
-import { db } from "../firebase";
+import { Quiz } from "../../models/quiz";
+import { db } from "../../firebase";
 import { RouteComponentProps } from "react-router";
-import { ContentRow } from "./layout";
-import { Question } from "../models/question";
+import { ContentRow } from "../shared/layout";
+import { Question } from "../../models/question";
 import { QuestionComponent } from "./questionComponent";
 import Title from "antd/es/typography/Title";
 

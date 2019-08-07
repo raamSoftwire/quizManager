@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 import { IndexPage } from "./components/indexPage";
 import { Layout } from "antd";
-import { Navbar } from "./components/navbar";
-import { CreatePage } from "./components/createPage";
-import { ShowPage } from "./components/showPage";
+import { Navbar } from "./components/shared/navbar";
+import { CreatePage } from "./components/create/createPage";
+import { ShowPage } from "./components/show/showPage";
 
 const App: React.FC = () => {
   return (
