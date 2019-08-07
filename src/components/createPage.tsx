@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { QuizForm, QuizFormFields } from "./quizForm";
 import { FormComponentProps } from "antd/es/form";
 import { Form } from "antd";
+import { db } from "../firebase";
+import { firestore } from "firebase";
 
 interface CreateQuizFormState {
   submitting: boolean;
@@ -12,6 +14,8 @@ class CreatePagePresentational extends Component<FormComponentProps, CreateQuizF
     submitting: false
   };
 
+  quizzesCollection = db.collection('quizzes');
+
   render() {
     return (
       <QuizForm
@@ -21,7 +25,12 @@ class CreatePagePresentational extends Component<FormComponentProps, CreateQuizF
     )
   }
 
-  private createQuiz = async (quiz: QuizFormFields) => console.log(quiz)
+  private createQuiz = async (quiz: QuizFormFields) => {
+    this.quizzesCollection.add({
+      title: quiz.title,
+      createdAt: firestore.FieldValue.serverTimestamp()
+    })
+  }
 }
 
 export const CreatePage = Form.create({name: "createQuiz"})(CreatePagePresentational);

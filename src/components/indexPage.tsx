@@ -1,4 +1,3 @@
-import firebase from "firebase";
 import React, { Component } from "react";
 import { db } from '../firebase';
 import { Quiz } from "../models/quiz";
@@ -6,6 +5,7 @@ import { Button, Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import moment from "moment";
 import { ContentRow } from "./layout";
+import { firestore } from "firebase";
 
 interface IndexPageState {
   quizzes: Quiz[];
@@ -30,9 +30,8 @@ export class IndexPage extends Component<IndexPageState> {
         key: "createdAt",
         sorter: (a: Quiz, b: Quiz) => moment(a.createdAt).diff(moment(b.createdAt)),
         sortDirections: ["descend", "ascend"],
-        render: (createdAt: firebase.firestore.Timestamp) =>
-          moment(createdAt.toMillis())
-            .fromNow()
+        render: (createdAt: firestore.Timestamp) =>
+          createdAt && moment(createdAt.toMillis()).fromNow()
       },
       {
         title: "Actions",
