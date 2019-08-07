@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import { IndexPage } from "./components/indexPage";
+import { IndexPage } from "./components/index/indexPage";
 import { Layout } from "antd";
 import { Navbar } from "./components/shared/navbar";
 import { CreatePage } from "./components/create/createPage";

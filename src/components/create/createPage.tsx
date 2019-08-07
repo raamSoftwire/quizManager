@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { QuizForm, QuizFormFields } from "./quizForm/quizForm";
 import { db } from "../../firebase";
 import { firestore } from "firebase";
-import { Quiz } from "../../models/quiz";
 
 export class CreatePage extends Component {
   quizzesCollection = db.collection('quizzes');
@@ -22,7 +21,7 @@ export class CreatePage extends Component {
       createdAt: firestore.FieldValue.serverTimestamp()
     });
     const questionCollection = this.quizzesCollection.doc(quizRef.id);
-    quiz.questions.map(question => {
+    await quiz.questions.map(question => {
       questionCollection.collection('questions').add(question)
     })
   }

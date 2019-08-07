@@ -1,15 +1,17 @@
-import React, { Component } from "react";
-import { db } from '../firebase';
-import { Quiz } from "../models/quiz";
+import React, { Component, Fragment } from "react";
+import { db } from '../../firebase';
+import { Quiz } from "../../models/quiz";
 import { Button, Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import moment from "moment";
-import { ContentRow } from "./shared/layout";
+import { ContentRow } from "../shared/layout";
 import { firestore } from "firebase";
+import { DeleteButton } from "./deleteButton";
 
 interface IndexPageState {
   quizzes: Quiz[];
 }
+
 export class IndexPage extends Component<IndexPageState> {
   state = {
     quizzes: []
@@ -39,13 +41,18 @@ export class IndexPage extends Component<IndexPageState> {
         title: "Actions",
         key: "action",
         render: (quiz: Quiz) => {
-          return <Button
-            type="primary"
-            style={ {marginRight: "10px"} }
-            href={`/${quiz.uid}`}
-          >
-            View
-          </Button>
+          return (
+            <Fragment>
+              <Button
+                type="primary"
+                style={ {marginRight: "10px"} }
+                href={ `/${ quiz.uid }` }
+              >
+                View
+              </Button>
+              <DeleteButton quizUid={quiz.uid}/>
+            </Fragment>
+          )
         }
       }
     ];
@@ -53,7 +60,7 @@ export class IndexPage extends Component<IndexPageState> {
 
   componentDidMount() {
     this.quizzesCollection.get()
-      .then(querySnapshot =>{
+      .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           this.setState({
             quizzes: [...this.state.quizzes, {...doc.data(), uid: doc.id} as Quiz]
@@ -66,8 +73,8 @@ export class IndexPage extends Component<IndexPageState> {
     return <div>
       <ContentRow>
         <Table
-          columns={this.getQuizTableColumns()}
-          dataSource={this.state.quizzes}
+          columns={ this.getQuizTableColumns() }
+          dataSource={ this.state.quizzes }
           rowKey="uid"
         />
       </ContentRow>
