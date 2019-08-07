@@ -32,6 +32,26 @@ export class QuestionInputForm extends Component<QuestionInputProps> {
           onChange={e => this.triggerChange({ correctAnswer: e.target.value })}
           value={this.props.value && this.props.value.correctAnswer}
         />
+        <Input
+          placeholder="Alternative answer"
+          onChange={e => this.triggerChange({ alternativeAnswer1: e.target.value })}
+          value={this.props.value && this.props.value.alternativeAnswer1}
+        />
+        <Input
+          placeholder="Alternative answer"
+          onChange={e => this.triggerChange({ alternativeAnswer2: e.target.value })}
+          value={this.props.value && this.props.value.alternativeAnswer2}
+        />
+        <Input
+          placeholder="Alternative answer"
+          onChange={e => this.triggerChange({ alternativeAnswer3: e.target.value })}
+          value={this.props.value && this.props.value.alternativeAnswer3}
+        />
+        <Input
+          placeholder="Alternative answer"
+          onChange={e => this.triggerChange({ alternativeAnswer4: e.target.value })}
+          value={this.props.value && this.props.value.alternativeAnswer4}
+        />
         {this.props.showRemoveButton && (
           <Icon
             className="dynamic-delete-button"

@@ -55,7 +55,7 @@ export class QuestionGroup<T> extends Component<
           <DecoratedFormItem
             key={key}
             {...(index === 0 ? {} : this.props.formLayoutWithoutLabel)}
-            label={index === 0 ? "Questions:" : ""}
+            label={`Question ${index + 1}`}
             fieldName={`questions[${key}]`}
             options={{
               initialValue:

@@ -28,6 +28,7 @@ export class IndexPage extends Component<IndexPageState> {
         title: "Date created",
         dataIndex: "createdAt",
         key: "createdAt",
+        defaultSortOrder: 'descend',
         sorter: (a: Quiz, b: Quiz) => moment(
           a.createdAt.toMillis()).diff(moment(b.createdAt.toMillis())),
         sortDirections: ["descend", "ascend"],

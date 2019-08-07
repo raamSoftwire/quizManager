@@ -6,12 +6,13 @@ import { ContentRow } from "../../shared/layout";
 import { DecoratedFormItem } from "./decoratedFormItem";
 import { formLayout, FormContext, formLayoutWithoutLabel } from "./formContext";
 import { QuestionGroup } from "./questionGroup";
+import { Question } from "../../../models/question";
 
 
 interface QuizFormOwnProps {
   defaultQuiz?: Quiz;
   submitButtonName: string;
-  onSubmit: (quiz: Quiz) => Promise<void>;
+  onSubmit: (quiz: QuizFormFields) => Promise<void>;
 }
 
 type QuizFormProps = FormComponentProps & QuizFormOwnProps
@@ -22,6 +23,7 @@ interface QuizFormState {
 
 export interface QuizFormFields {
   title: string;
+  questions: Question[];
 }
 
 class QuizFormItem extends DecoratedFormItem<QuizFormFields> {}
@@ -81,7 +83,7 @@ class QuizFormStructure extends Component<
     e.preventDefault();
     this.props.form.validateFields(
       (error, values: QuizFormFields) =>
-        !error && this.props.onSubmit(values as Quiz)
+        !error && this.props.onSubmit(values)
     );
   }
 }
