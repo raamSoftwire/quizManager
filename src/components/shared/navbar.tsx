@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Icon, Menu } from "antd";
 import { Link } from "react-router-dom";
+import style from "./layout.module.scss";
 
 export class Navbar extends Component {
   render() {
@@ -9,6 +10,7 @@ export class Navbar extends Component {
         mode="horizontal"
         theme="dark"
         style={{ lineHeight: "64px" }}
+        className={style.container}
       >
           <Menu.Item key="/quizzes">
             <Link to="/"><Icon type="file" />Quizzes</Link>

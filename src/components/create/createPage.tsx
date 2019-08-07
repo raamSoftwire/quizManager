@@ -1,37 +1,26 @@
 import React, { Component } from "react";
 import { QuizForm, QuizFormFields } from "./quizForm/quizForm";
-import { FormComponentProps } from "antd/es/form";
-import { Form } from "antd";
 import { db } from "../../firebase";
 import { firestore } from "firebase";
+import { Quiz } from "../../models/quiz";
 
-interface CreateQuizFormState {
-  submitting: boolean;
-}
-
-class CreatePagePresentational extends Component<FormComponentProps, CreateQuizFormState> {
-  state = {
-    submitting: false
-  };
-
+export class CreatePage extends Component {
   quizzesCollection = db.collection('quizzes');
 
   render() {
     return (
       <QuizForm
-        form={ this.props.form }
-        submitting={ this.state.submitting }
-        handleUpdate={ this.createQuiz }/>
+        defaultQuiz={ undefined }
+        submitButtonName={ "Create" }
+        onSubmit={ (quiz: Quiz) => this.createQuiz(quiz) }/>
     )
   }
 
   private createQuiz = async (quiz: QuizFormFields) => {
+    console.log(quiz);
     this.quizzesCollection.add({
       title: quiz.title,
       createdAt: firestore.FieldValue.serverTimestamp()
     })
   }
 }
-
-export const CreatePage = Form.create({name: "createQuiz"})(CreatePagePresentational);
-
