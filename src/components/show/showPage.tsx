@@ -9,29 +9,32 @@ import Title from "antd/es/typography/Title";
 
 interface ShowPageState {
   quiz?: Quiz;
-  questions?: Question[];
 }
 
 export class ShowPage extends Component<RouteComponentProps, ShowPageState> {
   state = {
-    quiz: undefined,
-    questions: []
+    quiz: {} as Quiz,
   };
 
   quizzesCollection = db.collection('quizzes');
+  // @ts-ignore
+  quizUid = this.props.match.params.quizUid;
 
   async loadQuiz() {
     // @ts-ignore
-    const quizSnapshot = await this.quizzesCollection.doc(this.props.match.params.quizUid).get();
-    this.setState({quiz: quizSnapshot.data() as Quiz});
+    const quizSnapshot = await this.quizzesCollection.doc(this.quizUid).get();
+    this.setState({quiz: {...quizSnapshot.data(), uid: this.quizUid, questions: [] as Question[]} as Quiz});
 
     quizSnapshot.ref.collection("questions").get()
       .then(querySnapshot => {
         querySnapshot.forEach(question => {
-          // @ts-ignore
-          this.setState({
-            questions: [...this.state.questions, question.data() as Question]
-          })
+          if (this.state.quiz && this.state.quiz.questions) {
+            console.log(question.data());
+            // @ts-ignore
+            this.setState({
+              quiz: {...(this.state.quiz as Quiz), questions: [...this.state.quiz.questions, question.data()]}
+            })
+          }
         })
       }
     )
@@ -50,7 +53,7 @@ export class ShowPage extends Component<RouteComponentProps, ShowPageState> {
           // @ts-ignore
           this.state.quiz && this.state.quiz.title }
         </Title>
-        {this.state.questions.map((question: Question, index)  => (
+        {this.state.quiz.questions && this.state.quiz.questions.map((question: Question, index)  => (
           <QuestionComponent key={index} question={question} order={index + 1} />
         ))}
       </ContentRow>
