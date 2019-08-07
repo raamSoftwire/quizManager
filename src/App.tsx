@@ -7,6 +7,7 @@ import { Navbar } from "./components/shared/navbar";
 import { CreatePage } from "./components/create/createPage";
 import { ShowPage } from "./components/show/showPage";
 import { EditPage } from "./components/create/editPage";
+import { LoginPage } from "./components/auth/loginPage";
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         </Layout.Header>
         <Layout.Content>
           <Switch>
+            <Route path="/login" exact component={LoginPage} />
             <Route path="/" exact component={ IndexPage }/>
             <Route path='/create' component={CreatePage} />
             <Route exact path="/:quizUid" component={ShowPage}/>
