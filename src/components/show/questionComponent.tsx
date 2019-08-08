@@ -28,14 +28,16 @@ export class QuestionComponentPresentational extends Component<
   render() {
     return (
       <Fragment>
-        <Title level={4}>
+        <Title level={4} style={{ marginBottom: "15px" }}>
           {`${this.props.order}. ${this.props.question.text}`}
         </Title>
         {this.props.isLoggedIn &&
           this.props.user.permissionLevel !== "restricted" && (
-            <Collapse>
+            <Collapse style={{ marginBottom: "30px" }}>
               <Panel header="See answers" key="1">
-                <p style={{color: "#00AE0D", fontWeight:700}}>{`A. ${this.props.question.correctAnswer}`}</p>
+                <p
+                  style={{ color: "#00AE0D", fontWeight: 700 }}
+                >{`A. ${this.props.question.correctAnswer}`}</p>
                 <p>{`B. ${this.props.question.alternativeAnswer1}`}</p>
                 <p>{`C. ${this.props.question.alternativeAnswer2}`}</p>
                 {this.props.question.alternativeAnswer3 && (

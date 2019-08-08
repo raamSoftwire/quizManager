@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Icon, Input } from "antd";
 import { Question } from "../../../models/question";
-
 
 interface QuestionInputProps {
   value?: Question;
@@ -13,15 +12,15 @@ interface QuestionInputProps {
 export class QuestionInputForm extends Component<QuestionInputProps> {
   triggerChange(changedData: Partial<Question>) {
     this.props.onChange &&
-    this.props.onChange({
-      ...this.props.value,
-      ...changedData
-    });
+      this.props.onChange({
+        ...this.props.value,
+        ...changedData
+      });
   }
 
   render() {
     return (
-      <Input.Group compact>
+      <Fragment>
         <Input
           placeholder="Question text"
           onChange={e => this.triggerChange({ text: e.target.value })}
@@ -33,23 +32,31 @@ export class QuestionInputForm extends Component<QuestionInputProps> {
           value={this.props.value && this.props.value.correctAnswer}
         />
         <Input
-          placeholder="Alternative answer"
-          onChange={e => this.triggerChange({ alternativeAnswer1: e.target.value })}
+          placeholder="Alternative answer 1"
+          onChange={e =>
+            this.triggerChange({ alternativeAnswer1: e.target.value })
+          }
           value={this.props.value && this.props.value.alternativeAnswer1}
         />
         <Input
-          placeholder="Alternative answer"
-          onChange={e => this.triggerChange({ alternativeAnswer2: e.target.value })}
+          placeholder="Alternative answer 2"
+          onChange={e =>
+            this.triggerChange({ alternativeAnswer2: e.target.value })
+          }
           value={this.props.value && this.props.value.alternativeAnswer2}
         />
         <Input
-          placeholder="Alternative answer"
-          onChange={e => this.triggerChange({ alternativeAnswer3: e.target.value })}
+          placeholder="Alternative answer (optional)"
+          onChange={e =>
+            this.triggerChange({ alternativeAnswer3: e.target.value })
+          }
           value={this.props.value && this.props.value.alternativeAnswer3}
         />
         <Input
-          placeholder="Alternative answer"
-          onChange={e => this.triggerChange({ alternativeAnswer4: e.target.value })}
+          placeholder="Alternative answer (optional)"
+          onChange={e =>
+            this.triggerChange({ alternativeAnswer4: e.target.value })
+          }
           value={this.props.value && this.props.value.alternativeAnswer4}
         />
         {this.props.showRemoveButton && (
@@ -64,7 +71,7 @@ export class QuestionInputForm extends Component<QuestionInputProps> {
             }}
           />
         )}
-      </Input.Group>
+      </Fragment>
     );
   }
 }
