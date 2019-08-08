@@ -62,7 +62,7 @@ export class IndexPagePresentational extends LoadableComponent<IndexPageProps> {
                 View
               </Button>
               {this.props.isLoggedIn &&
-                this.props.user.permissionLevel == "edit" && (
+                this.props.user.permissionLevel === "edit" && (
                   <Fragment>
                     <Button
                       type="primary"

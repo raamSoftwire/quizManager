@@ -4,7 +4,6 @@ import Title from "antd/es/typography/Title";
 import { Collapse } from "antd";
 import { RootState } from "../../state";
 import { connect } from "react-redux";
-import { IndexPagePresentational } from "../index/indexPage";
 import { LoadableComponentProps } from "../shared/loadable";
 import { User } from "../../models/user";
 const { Panel } = Collapse;
@@ -36,7 +35,7 @@ export class QuestionComponentPresentational extends Component<
           this.props.user.permissionLevel !== "restricted" && (
             <Collapse>
               <Panel header="See answers" key="1">
-                <p>{`A. ${this.props.question.correctAnswer}`}</p>
+                <p style={{color: "#00AE0D", fontWeight:700}}>{`A. ${this.props.question.correctAnswer}`}</p>
                 <p>{`B. ${this.props.question.alternativeAnswer1}`}</p>
                 <p>{`C. ${this.props.question.alternativeAnswer2}`}</p>
                 {this.props.question.alternativeAnswer3 && (

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Provider } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { browserHistory } from "./browserHistory";
 import { persistor, store } from "./store";
@@ -35,6 +35,7 @@ export class Root extends React.Component {
                     exact
                     component={EditPage}
                   />
+                  <Redirect to="/" />
                 </Switch>
               </Layout.Content>
             </Layout>

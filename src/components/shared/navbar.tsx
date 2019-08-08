@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Icon, Menu } from "antd";
-import { Link } from "react-router-dom";
 import style from "./layout.module.scss";
 import logo from "./logo.png";
 import { AuthButton } from "../index/authButton";
@@ -45,7 +44,7 @@ export class NavbarPresentational extends Component<NavbarProps> {
           <Icon type="file" />
           Quizzes
         </Menu.Item>
-        {this.props.isLoggedIn && this.props.user.permissionLevel == "edit" && (
+        {this.props.isLoggedIn && this.props.user.permissionLevel === "edit" && (
           <Menu.Item key="/create">
             <Icon type="file-add" />
             Create a Quiz

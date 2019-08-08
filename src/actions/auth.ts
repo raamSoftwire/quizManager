@@ -5,7 +5,7 @@ import { db } from "../firebase";
 import { AsyncWorker } from "typescript-fsa-redux-thunk";
 import { LoadableState } from "../state/loadable";
 import { Quiz } from "../models/quiz";
-import { RouterState } from "connected-react-router";
+import { push, RouterState } from "connected-react-router";
 
 function parseUserQuerySnapshot(dispatch: any, querySnapshot: any): User {
   let users: User[] = [];
@@ -26,7 +26,7 @@ let login: AsyncWorker<
   dispatch,
   getState
 ) => {
-  let user: Promise<User | void> = firebase
+  firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(userCredential => {
@@ -42,7 +42,8 @@ let login: AsyncWorker<
           .get()
           .then(querySnapshot => {
             parseUserQuerySnapshot(dispatch, querySnapshot);
-          });
+          })
+          .then(() => dispatch(push("/")));
     });
 };
 export const Login = asyncActionCreator<
