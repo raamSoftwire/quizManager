@@ -1,3 +1,16 @@
+@import "~antd/dist/antd.css";
+
+$baseColor: #393D46;
+$hoverColor: #677698;
+
+.baseColor {
+  background-color: $baseColor;
+}
+
+.ant-menu-item-selected {
+  background-color: $hoverColor !important;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

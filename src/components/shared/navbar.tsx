@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Icon, Menu } from "antd";
 import { Link } from "react-router-dom";
 import style from "./layout.module.scss";
+import logo from './logo.png';
 
 export class Navbar extends Component {
   render() {
@@ -9,9 +10,18 @@ export class Navbar extends Component {
       <Menu
         mode="horizontal"
         theme="dark"
-        style={{ lineHeight: "64px" }}
-        className={style.container}
+        style={{ lineHeight: "64px"}}
+        className={`${style.container} baseColor`}
       >
+        <Menu.Item key="/logo">
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Logo"
+              style={{height: "60px"}}
+            />
+          </Link>
+        </Menu.Item>
           <Menu.Item key="/quizzes">
             <Link to="/"><Icon type="file" />Quizzes</Link>
           </Menu.Item>
