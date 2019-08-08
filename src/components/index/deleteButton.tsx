@@ -17,7 +17,7 @@ interface DeleteButtonDispatchProps {
 
 type DeleteButtonProps = DeleteButtonOwnProps & DeleteButtonDispatchProps;
 
-export class DeleteButtonPresentational extends Component<DeleteButtonProps> {
+class DeleteButtonPresentational extends Component<DeleteButtonProps> {
   render() {
     return (
       <Button
@@ -30,7 +30,7 @@ export class DeleteButtonPresentational extends Component<DeleteButtonProps> {
   }
 
   private handleDelete = async (quizUid: string) => {
-    this.props.deleteQuiz({ quizUid }).then(() => this.props.push("/"));
+    this.props.deleteQuiz({ quizUid });
   };
 }
 

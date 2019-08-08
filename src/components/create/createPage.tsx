@@ -1,28 +1,49 @@
 import React, { Component } from "react";
 import { QuizForm, QuizFormFields } from "./quizForm/quizForm";
 import { db } from "../../firebase";
-import { firestore } from "firebase";
+import { AnyAction, bindActionCreators, Dispatch } from "redux";
+import { push } from "connected-react-router";
+import { thunkToAction } from "typescript-fsa-redux-thunk";
+import { CreateQuiz } from "../../actions";
+import { connect } from "react-redux";
 
-export class CreatePage extends Component {
-  quizzesCollection = db.collection('quizzes');
+interface CreatePageDispatchProps {
+  push: (route: string) => void;
+  createQuiz: (params: { quiz: QuizFormFields }) => Promise<void>;
+}
+
+class CreatePagePresentational extends Component<CreatePageDispatchProps> {
+  quizzesCollection = db.collection("quizzes");
 
   render() {
     return (
       <QuizForm
-        defaultQuiz={ undefined }
-        submitButtonName={ "Create" }
-        onSubmit={ (quiz: QuizFormFields) => this.createQuiz(quiz) }/>
-    )
+        defaultQuiz={undefined}
+        submitButtonName={"Create"}
+        onSubmit={(quiz: QuizFormFields) => this.handleCreate(quiz)}
+      />
+    );
   }
 
-  private createQuiz = async (quiz: QuizFormFields) => {
-    const quizRef = await this.quizzesCollection.add({
-      title: quiz.title,
-      createdAt: firestore.FieldValue.serverTimestamp()
-    });
-    const questionCollection = this.quizzesCollection.doc(quizRef.id);
-    await quiz.questions.map(question => {
-      return questionCollection.collection('questions').add(question)
-    })
-  }
+  private handleCreate = (quiz: QuizFormFields) => {
+    this.props.createQuiz({ quiz }).then(() => this.props.push("/"));
+  };
 }
+
+function mapDispatchToProps(
+  dispatch: Dispatch<AnyAction>
+): CreatePageDispatchProps {
+  // @ts-ignore
+  return bindActionCreators(
+    {
+      push,
+      createQuiz: thunkToAction(CreateQuiz.action)
+    },
+    dispatch
+  );
+}
+
+export const CreatePage = connect(
+  null,
+  mapDispatchToProps
+)(CreatePagePresentational);

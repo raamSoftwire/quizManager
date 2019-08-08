@@ -8,14 +8,13 @@ import { formLayout, FormContext, formLayoutWithoutLabel } from "./formContext";
 import { QuestionGroup } from "./questionGroup";
 import { Question } from "../../../models/question";
 
-
 interface QuizFormOwnProps {
   defaultQuiz?: Quiz;
   submitButtonName: string;
-  onSubmit: (quiz: QuizFormFields) => Promise<void>;
+  onSubmit: (quiz: QuizFormFields) => void;
 }
 
-type QuizFormProps = FormComponentProps & QuizFormOwnProps
+type QuizFormProps = FormComponentProps & QuizFormOwnProps;
 
 interface QuizFormState {
   submitting: boolean;
@@ -28,9 +27,7 @@ export interface QuizFormFields {
 
 class QuizFormItem extends DecoratedFormItem<QuizFormFields> {}
 
-class QuizFormStructure extends Component<
-  QuizFormProps, QuizFormState
-  > {
+class QuizFormStructure extends Component<QuizFormProps, QuizFormState> {
   state = {
     submitting: false
   };
@@ -46,8 +43,7 @@ class QuizFormStructure extends Component<
               label="Title"
               fieldName="title"
               options={{
-                initialValue:
-                  defaultQuiz && defaultQuiz.title,
+                initialValue: defaultQuiz && defaultQuiz.title,
                 rules: [
                   {
                     required: true,
@@ -59,11 +55,11 @@ class QuizFormStructure extends Component<
               <Input />
             </QuizFormItem>
             <QuestionGroup
-                formLayoutWithoutLabel={formLayoutWithoutLabel}
-                defaultValue={
-                  this.props.defaultQuiz &&
-                    this.props.defaultQuiz.questions
-                }/>
+              formLayoutWithoutLabel={formLayoutWithoutLabel}
+              defaultValue={
+                this.props.defaultQuiz && this.props.defaultQuiz.questions
+              }
+            />
             <Form.Item {...formLayoutWithoutLabel}>
               <Button
                 type="primary"
@@ -82,10 +78,11 @@ class QuizFormStructure extends Component<
   private handleSubmit(e: FormEvent) {
     e.preventDefault();
     this.props.form.validateFields(
-      (error, values: QuizFormFields) =>
-        !error && this.props.onSubmit(values)
+      (error, values: QuizFormFields) => !error && this.props.onSubmit(values)
     );
   }
 }
 
-export const QuizForm = Form.create<QuizFormProps>({name: "createQuiz"})(QuizFormStructure)
+export const QuizForm = Form.create<QuizFormProps>({ name: "createQuiz" })(
+  QuizFormStructure
+);
