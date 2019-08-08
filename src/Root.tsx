@@ -29,7 +29,7 @@ export class Root extends React.Component {
                   <Route path="/login" exact component={LoginPage} />
                   <PrivateRoute path="/" exact component={IndexPage} />
                   <PrivateRoute path="/create" exact component={CreatePage} />
-                  <PrivateRoute path="/:quizUid" exact component={ShowPage} />
+                  <Route path="/:quizUid" component={ShowPage} />
                   <PrivateRoute
                     path="/edit/:quizUid"
                     exact

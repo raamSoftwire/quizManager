@@ -14,9 +14,12 @@ import { thunkToAction } from "typescript-fsa-redux-thunk";
 import { LoadQuizzes } from "../../actions";
 import { connect } from "react-redux";
 import { handleError } from "../shared/error";
+import { User } from "../../models/user";
 
 interface IndexPageStateProps extends LoadableComponentProps {
   quizzes: Quiz[];
+  user: User;
+  isLoggedIn: boolean;
 }
 
 interface IndexPageDispatchProps {
@@ -54,18 +57,23 @@ export class IndexPagePresentational extends LoadableComponent<IndexPageProps> {
               <Button
                 type="primary"
                 style={{ marginRight: "10px" }}
-                href={`/${quiz.uid}`}
+                onClick={() => this.props.push(`/${quiz.uid}`)}
               >
                 View
               </Button>
-              <Button
-                type="primary"
-                style={{ marginRight: "10px" }}
-                href={`edit/${quiz.uid}`}
-              >
-                Edit
-              </Button>
-              <DeleteButton quizUid={quiz.uid} />
+              {this.props.isLoggedIn &&
+                this.props.user.permissionLevel == "edit" && (
+                  <Fragment>
+                    <Button
+                      type="primary"
+                      style={{ marginRight: "10px" }}
+                      onClick={() => this.props.push(`edit/${quiz.uid}`)}
+                    >
+                      Edit
+                    </Button>
+                    <DeleteButton quizUid={quiz.uid} />
+                  </Fragment>
+                )}
             </Fragment>
           );
         }
@@ -97,7 +105,9 @@ export class IndexPagePresentational extends LoadableComponent<IndexPageProps> {
 function mapStateToProps(state: RootState): IndexPageStateProps {
   return {
     quizzes: [...Object.values(state.quiz.data)],
-    isLoading: state.quiz.isLoading
+    isLoading: state.quiz.isLoading,
+    user: [...Object.values(state.user.data)][0],
+    isLoggedIn: state.user.isLoggedIn
   };
 }
 
