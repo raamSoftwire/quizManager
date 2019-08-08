@@ -4,6 +4,7 @@ import { RootState } from "../state";
 import { browserHistory } from "../browserHistory";
 
 import { quizReducer } from "./quiz";
+import { userReducer } from "./user";
 
 type ReducerMap = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,5 +20,6 @@ function createRootReducer(reducers: ReducerMap): Reducer<RootState> {
 
 export const rootReducer = createRootReducer({
   router: connectRouter(browserHistory),
-  quiz: quizReducer
+  quiz: quizReducer,
+  user: userReducer
 });
