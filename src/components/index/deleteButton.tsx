@@ -1,35 +1,53 @@
 import React, { Component } from "react";
 import { Button } from "antd";
-import { db } from "../../firebase";
+import { AnyAction, bindActionCreators, Dispatch } from "redux";
+import { push } from "connected-react-router";
+import { thunkToAction } from "typescript-fsa-redux-thunk";
+import { DeleteQuiz } from "../../actions";
+import { connect } from "react-redux";
 
-interface DeleteButtonProps {
+interface DeleteButtonOwnProps {
   quizUid: string;
 }
 
-export class DeleteButton extends Component<
-  DeleteButtonProps
-  > {
+interface DeleteButtonDispatchProps {
+  push: (route: string) => void;
+  deleteQuiz: (params: { quizUid: string }) => Promise<void>;
+}
 
+type DeleteButtonProps = DeleteButtonOwnProps & DeleteButtonDispatchProps;
+
+export class DeleteButtonPresentational extends Component<DeleteButtonProps> {
   render() {
     return (
       <Button
         type="danger"
-        onClick={() => this.deleteQuiz(this.props.quizUid) }
+        onClick={() => this.handleDelete(this.props.quizUid)}
       >
         Delete
       </Button>
     );
   }
 
-  private deleteQuiz = async (quizUid: string) => {
-    const quizzesCollection = db.collection('quizzes');
-
-    const questionCollection = quizzesCollection.doc(this.props.quizUid).collection('questions');
-    await questionCollection.get()
-      .then(querySnapshot => querySnapshot.forEach(doc =>
-          questionCollection.doc(doc.id).delete()
-        )
-      );
-    await quizzesCollection.doc(quizUid).delete();
-  }
+  private handleDelete = async (quizUid: string) => {
+    this.props.deleteQuiz({ quizUid }).then(() => this.props.push("/"));
+  };
 }
+
+function mapDispatchToProps(
+  dispatch: Dispatch<AnyAction>
+): DeleteButtonDispatchProps {
+  // @ts-ignore
+  return bindActionCreators(
+    {
+      push,
+      deleteQuiz: thunkToAction(DeleteQuiz.action)
+    },
+    dispatch
+  );
+}
+
+export const DeleteButton = connect(
+  null,
+  mapDispatchToProps
+)(DeleteButtonPresentational);

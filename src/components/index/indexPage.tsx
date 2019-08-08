@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { db } from "../../firebase";
 import { Quiz } from "../../models/quiz";
 import { LoadableComponent, LoadableComponentProps } from "../shared/loadable";
 import { Button, Table } from "antd";
@@ -115,9 +114,7 @@ function mapDispatchToProps(
   );
 }
 
-const IndexPage = connect(
+export const IndexPage = connect(
   mapStateToProps,
   mapDispatchToProps
 )(IndexPagePresentational);
-
-export { IndexPage };

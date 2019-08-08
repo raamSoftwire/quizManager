@@ -20,3 +20,19 @@ export const LoadQuizzes = asyncActionCreator<null, { quizzes: Quiz[] }>(
       quizzes: parseQuizQuerySnapshot(querySnaphot)
     }))
 );
+
+export const DeleteQuiz = asyncActionCreator<{ quizUid: string }, void>(
+  "DELETE_QUIZ",
+  ({ quizUid }, dispatch, getState) => {
+    const questionCollection = quizzesCollection
+      .doc(quizUid)
+      .collection("questions");
+
+    questionCollection
+      .get()
+      .then(querySnapshot =>
+        querySnapshot.forEach(doc => questionCollection.doc(doc.id).delete())
+      )
+      .then(() => quizzesCollection.doc(quizUid).delete());
+  }
+);

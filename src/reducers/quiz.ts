@@ -1,7 +1,8 @@
 import { initialState } from "../state";
 import { reducerBuilder } from "./reducerBuilder";
-import { LoadQuizzes } from "../actions";
+import { DeleteQuiz, LoadQuizzes } from "../actions";
 
+// @ts-ignore
 export const quizReducer = reducerBuilder(initialState.quiz)
   .case(LoadQuizzes.async.started, state => ({
     ...state,
@@ -21,5 +22,19 @@ export const quizReducer = reducerBuilder(initialState.quiz)
       }),
       state.data
     )
+  }))
+  .case<{
+    params: {
+      quizUid: string;
+    };
+  }>(DeleteQuiz.async.done, (state: any, { params }) => ({
+    ...state,
+    data: Object.keys(state.data)
+      .filter(key => key !== params.quizUid)
+      .reduce((obj, key) => {
+        // @ts-ignore
+        obj[key] = state.data[key];
+        return obj;
+      }, {})
   }))
   .build();
