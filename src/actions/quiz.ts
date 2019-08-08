@@ -52,3 +52,24 @@ export const CreateQuiz = asyncActionCreator<{ quiz: QuizFormFields }, void>(
     });
   }
 );
+
+export const EditQuiz = asyncActionCreator<
+  { quizUid: string; quiz: QuizFormFields },
+  void
+>("EDIT_QUIZ", async ({ quizUid, quiz }, dispatch, getState) => {
+  quizzesCollection.doc(quizUid).update({
+    title: quiz.title
+  });
+
+  const questionCollection = quizzesCollection
+    .doc(quizUid)
+    .collection("questions");
+  await questionCollection
+    .get()
+    .then(querySnapshot =>
+      querySnapshot.forEach(doc => questionCollection.doc(doc.id).delete())
+    );
+  await quiz.questions.map(question => {
+    return questionCollection.add(question);
+  });
+});
