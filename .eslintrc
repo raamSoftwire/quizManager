@@ -1,0 +1,26 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "plugin:prettier/recommended"],
+  "env": {
+    "browser": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [ "error", { "ignoreRestSiblings":  true } ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "no-console": "error",
+    "no-debugger": "error"
+  }
+}
