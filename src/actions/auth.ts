@@ -56,3 +56,8 @@ export const AssignUser = asyncActionCreator<User, User>(
     return user;
   }
 );
+
+export const Logout = asyncActionCreator<null, void>(
+  "LOG_OUT",
+  (params, dispatch, getState) => {}
+);

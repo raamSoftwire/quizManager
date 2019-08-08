@@ -12,6 +12,7 @@ import { ShowPage } from "./components/show/showPage";
 import { EditPage } from "./components/create/editPage";
 import { LoginPage } from "./components/auth/loginPage";
 import { PersistGate } from "redux-persist/integration/react";
+import { PrivateRoute } from "./privateRoute";
 
 export class Root extends React.Component {
   render() {
@@ -26,10 +27,14 @@ export class Root extends React.Component {
               <Layout.Content>
                 <Switch>
                   <Route path="/login" exact component={LoginPage} />
-                  <Route path="/" exact component={IndexPage} />
-                  <Route path="/create" component={CreatePage} />
-                  <Route exact path="/:quizUid" component={ShowPage} />
-                  <Route exact path="/edit/:quizUid" component={EditPage} />
+                  <PrivateRoute path="/" exact component={IndexPage} />
+                  <PrivateRoute path="/create" exact component={CreatePage} />
+                  <PrivateRoute path="/:quizUid" exact component={ShowPage} />
+                  <PrivateRoute
+                    path="/edit/:quizUid"
+                    exact
+                    component={EditPage}
+                  />
                 </Switch>
               </Layout.Content>
             </Layout>
